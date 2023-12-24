@@ -6,7 +6,7 @@ This is a simple Flask app that demonstrates how to create a web application wit
 
 - Python 3.x installed on your machine.
 - [Git](https://git-scm.com/) installed.
-- (Optional) [DB Browser for SQLite](https://sqlitebrowser.org/) to visualize the SQLite database.
+- [Docker](https://www.docker.com/) installed.
 
 ## Setup
 
@@ -22,13 +22,15 @@ This is a simple Flask app that demonstrates how to create a web application wit
     cd flask-sqlite-example
     ```
 
-3. Create a virtual environment (optional but recommended):
+## Run the Flask App Locally
+
+3. (Optional) Create a virtual environment:
 
     ```bash
     python -m venv venv
     ```
 
-4. Activate the virtual environment:
+    Activate the virtual environment:
 
     - On Windows:
 
@@ -42,15 +44,13 @@ This is a simple Flask app that demonstrates how to create a web application wit
         source venv/bin/activate
         ```
 
-5. Install the required dependencies:
+4. Install the required dependencies:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-## Run the Flask App
-
-6. Run the Flask app:
+5. Run the Flask app:
 
     ```bash
     python app.py
@@ -58,11 +58,27 @@ This is a simple Flask app that demonstrates how to create a web application wit
 
     The app will be accessible at [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your web browser.
 
+## Create a Docker Image
+
+6. Create a Docker image:
+
+    ```bash
+    docker build -t flask-sqlite-example .
+    ```
+
+7. Run the Docker container:
+
+    ```bash
+    docker run -p 5000:5000 flask-sqlite-example
+    ```
+
+    The app will be accessible at [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your web browser.
+
 ## View SQLite Database
 
-7. (Optional) Install [DB Browser for SQLite](https://sqlitebrowser.org/).
+8. (Optional) Install [DB Browser for SQLite](https://sqlitebrowser.org/).
 
-8. Open `database.db` in the `src` directory using DB Browser for SQLite to visualize the data.
+9. Open `database.db` in the `src` directory using DB Browser for SQLite to visualize the data.
 
 ## Project Structure
 
