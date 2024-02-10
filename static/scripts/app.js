@@ -1,31 +1,18 @@
 $(document).ready(function () {
-        $('#userForm').submit(function (event) {
-            event.preventDefault();
-
-            var formData = {
-                'first_name': $('#first_name').val(),
-                'last_name': $('#last_name').val()
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/add_user',
-                data: formData,
-                dataType: 'json',
-                success: function (data) {
-                    var successMessage = formData.first_name + ' ' + formData.last_name + ' added to DB successfully';
-
-                    // Display success message on the webpage
-                    $('#successMessage').text(successMessage);
-
-                    // Clear the input fields
-                    $('#first_name').val('');
-                    $('#last_name').val('');
-                },
-                error: function (error) {
-                    console.log('Error:', error);
-                }
-            });
+    $('#userForm').submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '/show_user',
+            dataType: 'json',
+            success: function (data) {
+                // Assuming 'data' is the JSON response from the backend
+                // You can update the following line based on the structure of your JSON data
+                $('#successMessage').text(JSON.stringify(data));
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
         });
     });
-
+});

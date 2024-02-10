@@ -15,6 +15,11 @@ EXPOSE 8080
 
 # Define environment variable
 ENV DATBASE_NAME database.db
+ENV POSTGRES_DB school
+ENV POSTGRES_HOST 192.168.0.40
+ENV POSTGRES_PASSWORD welcome1
+ENV POSTGRES_PORT 5432
+ENV POSTGRES_USER postgres
 
 # Run app.py when the container launches
 CMD ["python", "app.py", "--host", "0.0.0.0", "--port", "8080"]
