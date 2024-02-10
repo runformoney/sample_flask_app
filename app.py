@@ -13,7 +13,14 @@ def index():
 def show_user():
     data = db_helper_postgres.select_all_from_class_table()
     return jsonify(data)
-    # return jsonify()
+    # return jsonify(
+    #     {
+    #         "data": [
+    #             {"name": "Ifra Irshin ", "roll_number": 1},
+    #             {"name": "Hifzur Rahman ", "roll_number": 2},
+    #         ]
+    #     }
+    # )
 
 
 if __name__ == "__main__":
