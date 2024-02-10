@@ -22,4 +22,4 @@ ENV POSTGRES_PORT 5432
 ENV POSTGRES_USER postgres
 
 # Run app.py when the container launches
-CMD ["python", "app.py", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["python", "app.py", "--host", "0.0.0.0", "--port", "8091"]
