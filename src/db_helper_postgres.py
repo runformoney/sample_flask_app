@@ -24,13 +24,9 @@ def select_all_from_class_table():
         with engine.connect() as connection:
             result = connection.execute(query).fetchall()
 
-        return result
+        result_list = [dict(row) for row in result]
+        res = {"data": result_list}
+        return res
 
     except Exception as error:
         return f"Error retrieving data: {error}"
-
-
-if __name__ == "__main__":
-    class_data = select_all_from_class_table()
-    for row in class_data:
-        print(row)
