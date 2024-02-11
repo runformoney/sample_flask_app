@@ -17,8 +17,8 @@ def select_all_from_class_table():
 
         # Define the "class" table
         metadata = MetaData()
-#        class_table = Table("class", metadata, autoload=True, autoload_with=engine)
-        class_table = Table("class", metadata)
+        class_table = Table("class", metadata, autoload=True, autoload_with=engine)
+        # class_table = Table("class", metadata)
 
         # Select all rows from the "class" table
         query = select([class_table])
