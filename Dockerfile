@@ -14,7 +14,7 @@ RUN pip install -r requirements.txt
 EXPOSE 8091
 
 # Define environment variable
-ENV DATABASE_URI postgresql://school_lzcu_user:2bYeUkfbdEmikpN9SqJV5Ru6OsFnyPjF@dpg-cn5tbaa1hbls73aklfl0-a.frankfurt-postgres.render.com/school_lzcu
+ENV DATABASE_URI
 
 # Run app.py when the container launches
 CMD ["python", "app.py", "--host", "0.0.0.0", "--port", "8091"]
