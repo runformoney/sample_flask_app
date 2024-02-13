@@ -7,8 +7,12 @@ app = Flask(__name__)
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Flask App Arguments")
-    parser.add_argument("--host", type=str, default="0.0.0.0", help="Host address to bind to")
-    parser.add_argument("--port", type=int, default=8091, help="Port number to listen on")
+    parser.add_argument(
+        "--host", type=str, default="0.0.0.0", help="Host address to bind to"
+    )
+    parser.add_argument(
+        "--port", type=int, default=8091, help="Port number to listen on"
+    )
     return parser.parse_args()
 
 
@@ -26,7 +30,7 @@ def index():
 
 @app.route("/show_user", methods=["POST"])
 def show_user():
-    data = db_helper_postgres.select_all_from_class_table()
+    data = db_helper_postgres.get_all_students()
     return jsonify(data)
 
 
