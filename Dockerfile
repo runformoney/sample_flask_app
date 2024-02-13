@@ -14,7 +14,7 @@ RUN pip install -r requirements.txt
 EXPOSE 8091
 
 # Define environment variable
-ENV DATABASE_URI
+ENV DATABASE_URI $DATABASE_URI
 
 # Run app.py when the container launches
 CMD ["python", "app.py", "--host", "0.0.0.0", "--port", "8091"]
