@@ -13,6 +13,9 @@ RUN pip install -r requirements.txt
 # Make port 8080 available to the world outside this container
 EXPOSE 8091
 
+# Declare a build argument for DATABASE_URI
+ARG DATABASE_URI
+
 # Define environment variable
 ENV DATABASE_URI $DATABASE_URI
 
