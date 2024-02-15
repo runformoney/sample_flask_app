@@ -1,34 +1,32 @@
-import os
-from sqlalchemy import create_engine, Column, String, Integer, MetaData, Table
+from sqlalchemy import create_engine, Column, String, Integer, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
+from sqlalchemy import inspect
+import os
 import logging
 
 logging.getLogger().setLevel(logging.INFO)
 
+DATABASE_URI = os.getenv("DATABASE_URI")
+engine = create_engine(DATABASE_URI)
+Base = declarative_base()
+Session = sessionmaker(bind=engine)
 
-def get_all_students():
-    DATABASE_URI = os.getenv("DATABASE_URI")
-    logging.info("Connecting to DB")
-    engine = create_engine(DATABASE_URI)
 
-    Base = declarative_base()
+class Student(Base):
+    __tablename__ = "students"
 
-    # Define the table class
-    class Student(Base):
-        __tablename__ = "students"
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    roll_number = Column(Integer)
 
-        id = Column(Integer, primary_key=True)
-        name = Column(String)
-        roll_number = Column(Integer)
 
+def create_students_table():
     # Create the table in the database
     Base.metadata.create_all(engine)
 
-    # Create a session to interact with the database
-    logging.info("Creating Session with DB")
-    Session = sessionmaker(bind=engine)
+
+def get_all_students():
     session = Session()
 
     # Retrieve all rows from the 'students' table
@@ -44,4 +42,30 @@ def get_all_students():
     session.close()
 
     logging.info("Returning DB Data")
+    logging.info(f"{students_data}")
     return {"data": students_data}
+
+
+def insert_user(name):
+    session = Session()
+
+    # Check if the table exists; if not, create it
+    inspector = inspect(engine)
+    if not inspector.has_table("students"):
+        create_students_table()
+
+    # Count the number of existing rows
+    existing_rows_count = session.query(func.count(Student.id)).scalar()
+
+    # Increment the count to get the new roll number
+    new_roll_number = existing_rows_count + 1
+
+    # Add logic to insert a new user into the database
+    new_student = Student(name=name, roll_number=new_roll_number)
+    session.add(new_student)
+    session.commit()
+
+    # Close the session
+    session.close()
+
+    return new_roll_number

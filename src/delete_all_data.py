@@ -1,7 +1,7 @@
-import os
-from sqlalchemy import create_engine, Column, String, Integer, MetaData, Table
+from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
 
 # Replace 'postgresql://user:password@localhost:5432/database' with your actual PostgreSQL connection string
 DATABASE_URI = os.getenv("DATABASE_URI")
@@ -19,18 +19,14 @@ class Student(Base):
     roll_number = Column(Integer)
 
 
-# Create the table in the database
-Base.metadata.create_all(engine)
-
 # Create a session to interact with the database
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Insert two rows
-student1 = Student(name="Rukhshan Ur Rehman", roll_number=3)
-# student2 = Student(name="Hifzur Rahman", roll_number=2)
+# Delete all rows from the "students" table
+session.query(Student).delete()
 
-session.add_all([student1])
+# Commit the changes
 session.commit()
 
 # Close the session
