@@ -49,5 +49,23 @@ def insert_user_page():
     return render_template("insert_user.html")
 
 
+@app.route("/delete_user_page", methods=["GET"])
+def delete_user_page():
+    data = db_helper_postgres.get_all_students()
+    return render_template("delete_user.html", users=data["data"])
+
+
+@app.route("/delete_user", methods=["GET"])
+def delete_user():
+    roll_number_to_delete = request.args.get("roll_number", None)
+    message = db_helper_postgres.delete_user(roll_number_to_delete)
+    data = db_helper_postgres.get_all_students()
+
+    # Assuming you have a template named 'show_user_page.html'
+    return render_template(
+        "delete_user.html", users=data["data"], success_message=message
+    )
+
+
 if __name__ == "__main__":
     main()

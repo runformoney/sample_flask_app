@@ -69,3 +69,38 @@ def insert_user(name):
     session.close()
 
     return new_roll_number
+
+
+from sqlalchemy.exc import SQLAlchemyError
+
+
+def delete_user(roll_number):
+    session = Session()
+    roll_number = int(roll_number)
+
+    try:
+        # Retrieve the student with the given roll_number
+        student_to_delete = (
+            session.query(Student).filter_by(roll_number=roll_number).first()
+        )
+
+        if student_to_delete:
+            # Delete the student
+            session.delete(student_to_delete)
+            session.commit()
+            success_message = (
+                f"User with Roll Number {roll_number} deleted successfully."
+            )
+        else:
+            success_message = f"No user found with Roll Number {roll_number}."
+
+    except SQLAlchemyError as e:
+        # Handle exceptions, log errors, etc.
+        print(f"Error deleting user: {e}")
+        success_message = "Error deleting user."
+
+    finally:
+        # Close the session
+        session.close()
+
+    return success_message

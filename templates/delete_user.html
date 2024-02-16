@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete User Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/show_user_page">Show User</a>
+    <a href="/insert_user_page">Insert User</a>
+    <a href="/delete_user_page">Delete User</a>
+</div>
+<div class="container">
+    <div id="userDataContainer">
+        {% if users %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll Number</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user['roll_number'] }}</td>
+                            <td>{{ user['name'] }}</td>
+                            <td>
+                                <button class="deleteBtn" data-roll-number="{{ user['roll_number'] }}">Delete</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+    <br>
+    <div id="successMessage">
+        {{ success_message }}
+    </div>
+</div>
+
+<!-- ... (previous HTML code) ... -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var deleteButtons = document.querySelectorAll(".deleteBtn");
+
+        deleteButtons.forEach(function(button) {
+            button.addEventListener("click", function() {
+                var rollNumber = this.getAttribute('data-roll-number');
+                deleteUserData(rollNumber);
+            });
+        });
+
+        function deleteUserData(rollNumber) {
+            // Update the location to the backend endpoint for deleting the user
+            window.location.href = "/delete_user?roll_number=" + rollNumber;
+        }
+    });
+</script>
+<!-- ... (remaining HTML code) ... -->
+</body>
+</html>
